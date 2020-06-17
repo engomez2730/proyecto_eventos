@@ -5,9 +5,7 @@ exports.checkId = (req, res, next, val)=>{
     console.log(val)
     next();}
 
-
-
-
+    
 exports.mostrarUsuarios = (req,res) =>{
 
     res.status(500).json({

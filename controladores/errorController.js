@@ -1,11 +1,49 @@
-module.exports = (err,req,res,next) =>{
-    err.statusCode = err.statusCode ||	500;
-    err.status = err.status ||	'error';
+const ErrorApp = require("../Util/errorApp")
 
-    res.status(err.statusCode).json({
-        status: err.status,
-        message: err.message
-    })
-    next()
+
+
+const errorDesarollo =(err,res) =>{
+        res.status(err.statusCode).json({
+            error:err,
+            status: err.status,
+            message: err.message,
+            stack:err.stack
+        })
+    }
+
+    const errorProducion =(err,res) =>{
+        if(err.isoperational){
+            errorProducion(err,res)
+        }else{
+            res.status(500).json({
+                status: "Error",
+                message:"Algo malo"
+            })
+        }
+    }
+
+    const catchErrorDb = (err) =>{
+        const message = "Ese Numero de Id es invalido"
+        return new ErrorApp(message,404);
+    }
+
+module.exports = (err,req,res,next) =>{
+
+    err.statusCode = err.statusCode ||	500;
+        err.status = err.status ||	'error';
+
+    if (process.env.NODE_ENV === 'development'){
+
+        errorDesarollo(err,res)
+     
+    }
+    
+    else if(process.env.NODE_ENV === 'production'){
+      
+        let error = {...err}
+        if(error.name === "CastError") error = catchErrorDb(err)
+        catchErrorDb(error,res)
+    }
+
 }
 

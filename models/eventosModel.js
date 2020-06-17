@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 const validator = require('validator')
 
-
+//Eventos Schema- Tabla Eventos
 
 const eventosSchema = new mongoose.Schema({
 
@@ -13,8 +13,7 @@ const eventosSchema = new mongoose.Schema({
         trim: true,
         maxlength:[40, "Un Tour debe tener menos de 40 caracteres"],
         minlength:[5, "El nombre debe tener mas de 5 palabras"],
-/*         validate:[validator.isAlpha, "No puede tener Numeros"]
- */    },
+        /* validate:[validator.isAlpha, "No puede tener Numeros"]*/    },
     duracion:{
         type: Number,
         required:[true]
@@ -66,7 +65,7 @@ const eventosSchema = new mongoose.Schema({
         type: Number,
         required:[true,"Debe tener un precio"],
     },
-    // Validacion Custom
+    // Validacion manual
     precioDescuento:{
         type: Number,
         validate: function(val){

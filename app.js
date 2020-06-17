@@ -4,6 +4,8 @@ var app = express();
 const ErrorApp = require('./Util/errorApp')
 const errorControlador = require('./controladores/errorController');
 
+//Saber si esta en modo Desarollo (No tan importante)
+
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
@@ -15,10 +17,6 @@ const usuariosRouter = require('./rutas/usuariosRutas.js')
 
 /* ---------------------Middlewares-----------------*/
 app.use(express.json())
-app.use((req,res, next) =>{
-    console.log("Hello World")
-    next()
-})
 app.use(express.static(`${__dirname}/public`))
 app.use((req,res,next) =>{
     req.requestTitme = new Date().toISOString();

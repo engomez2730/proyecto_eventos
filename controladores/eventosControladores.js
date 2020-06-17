@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const APIfunciones = require('./../Util/apiControladores')
 const eventosModel = require('./../models/eventosModel.js')
+const catchAsync = require("../Util/errorControlador");
+const ErrorApp = require('../Util/errorApp')
+
 
 /* const eventos = JSON.parse(fs.readFileSync(`${__dirname}/../data/data/tours-simple.json`));
  */
-/* ---------------------Show all events-----------------*/
+
 exports.mostrarmasVendidos=(req,res,next)=>{
 
     req.query.limit = '5'
@@ -13,10 +16,10 @@ exports.mostrarmasVendidos=(req,res,next)=>{
     next();
 };
 
-exports.mostrarEventos = async (req,res)=>{
+/* ---------------------Mostrar todos los eventos-----------------*/
 
-    
-    try{
+
+exports.mostrarEventos = catchAsync( async (req,res,next)=>{
 
     const funciones = new APIfunciones(eventosModel.find(),req.query).filter().sort().limitFiels().paginacion()
     const todosEventos = await funciones.query;
@@ -29,37 +32,27 @@ exports.mostrarEventos = async (req,res)=>{
                 todosEventos
             }
         })    
-    }catch(err){
-        res.status(400).json({
-            status:"error",
-            mensaje:err
-            
-        });
-    }
-}
-/* ---------------------Show only one event-----------------*/
-exports.mostrarevento = async(req,res)=>{
 
-    try{
+})
+/* ---------------------Mostrar solamente el evento selecionado-----------------*/
+exports.mostrarevento = catchAsync(async(req,res,next)=>{
+
         const evento = await eventosModel.findById(req.params.id)
+
+        if(!evento){
+            return next(new ErrorApp('No se pudo ', 404))
+        }
         res.status(200).json({
             status:"sucees",
             datos:{
                 evento
             }
         })    
-    }catch(err){
-        res.status(400).json({
-            status:"error",
-            mensaje:err
-            
-        });
-    }
-}
+})
 
 /*---------------------Check content-----------------*/
 
- exports.chequearContenido =(req,res,next)=>{
+/*  exports.chequearContenido =(req,res,next)=>{
     if(!req.body.name || !req.body.price)
     return res.status(400).json(
         {
@@ -69,67 +62,55 @@ exports.mostrarevento = async(req,res)=>{
     )    
     next()
 } 
+ */
 
-/* ---------------------create event-----------------*/
 
 
-const catchAsync = fn =>{
-    fn(req,res,next).catch(err=> next(err))
-}
 
+/* ---------------------crear Evento----------------*/
 
 exports.crearEvento = catchAsync( async (req,res,next)=>{
-    try{
-
+ 
         const nuevoEvento = await eventosModel.create(req.body)
+
+        if(!nuevoEvento){
+            return next(new ErrorApp('No se pudo ', 404))
+        }
         res.status(200).json({
             status:"sucees",
             datos:{
                 nuevoEvento
             }
         })    
-    }catch(err){
-        res.status(400).json({
-            status:"error",
-            mensaje:err
-            
-        });
-    }
+    
 });
 
-/* ---------------------update event-----------------*/
+/* ---------------------Actualizar evento-----------------*/
 
-exports.actualizarEvento = async(req,res)=>{
-
-    try{
-        const actualizarEvento = await eventosModel.findByIdAndUpdate(req.params.id,req.body,{
+exports.actualizarEvento = catchAsync( async(req,res,next)=>{
+    
+    const actualizarEvento = await eventosModel.findByIdAndUpdate(req.params.id,req.body,{
             new:true,
             runValidators: true // para que los validadores funciones despues de actualizar un documento
         })
-       
+
+        if(!actualizarEvento){
+            return next(new ErrorApp('No se pudo ', 404))
+        }
         res.status(200).json({
             status:"sucees",
             datos:{
                 actualizarEvento
             }
-        })    
-    }catch(err){
-        res.status(400).json({
-            status:"error",
-            mensaje:err
-            
-        });
-    }
-    
-    
-}
+        })      
+})
 
-/* ---------------------Delete event-----------------*/
+/* ---------------------Borrar Evento-----------------*/
 
 
-exports.borrarEvento = async(req,res)=>{
+exports.borrarEvento = catchAsync( async(req,res,next)=>{
 
-    try{
+
         const borrarEvento = await eventosModel.findByIdAndDelete(req.params.id)
        
         res.status(200).json({
@@ -138,20 +119,13 @@ exports.borrarEvento = async(req,res)=>{
                 data:null
             }
         })    
-    }catch(err){
-        res.status(400).json({
-            status:"error",
-            mensaje:err
-            
-        });
-    }
-    
-
    
-}
+})
 
-exports.getEstadisticas = async (req,res) =>{
-    try{
+//Mostrar Estadisticas
+
+exports.getEstadisticas = catchAsync( async (req,res,next) =>{
+    
 
         const estadisticas = await eventosModel.aggregate([
             {
@@ -184,20 +158,15 @@ exports.getEstadisticas = async (req,res) =>{
              estadisticas
             }
         })  
+  
+})
 
-    }catch(err){ res.status(400).json({
-        status:"error",
-        mensaje:err  
-    });   
-    }
-}
+//Mostrar el mes que tiene mas Eventos Programados
 
-exports.mesMasOcupado = async (req, res) =>{
+exports.mesMasOcupado =  catchAsync( async (req, res, next) =>{
 
-    try{
 
         const year = req.params.year * 1
-
 
         const datos = await eventosModel.aggregate([
             {
@@ -223,9 +192,7 @@ exports.mesMasOcupado = async (req, res) =>{
             {
                 $sort: {diadelTour: 1} //Organizar documentos
             }
-
-            
-           
+         
         ])
         res.status(200).json({
             mensaje:"Suceess",
@@ -233,13 +200,4 @@ exports.mesMasOcupado = async (req, res) =>{
                 datos
             }
         })
-    
-    }catch(err){res.status(400).json({
-        status:"error",
-        mensaje:err  
-    });   
-
-    }
-
-
-}
+})

@@ -1,19 +1,21 @@
+const catchAsync = require("../Util/errorControlador");
+const mongoose = require('mongoose');
+const Usuario = require("../models/usuariosModel")
 
 
 
-exports.checkId = (req, res, next, val)=>{
-    console.log(val)
-    next();}
 
-    
-exports.mostrarUsuarios = (req,res) =>{
+exports.mostrarUsuarios = catchAsync(  async (req,res, next) =>{
 
-    res.status(500).json({
-        status: "errot",
-        mensaje: "No hecho aum, mostrar todos los usuarios"
-    })
+    const todosUsuarios = await Usuario.find({});
+        res.status(200).json({
+            status:"sucees",
+            datos:{
+                todosUsuarios
+            }
+        })    
 
-}
+})
 
 exports.crearUsuario = (req,res) =>{
 
@@ -46,6 +48,18 @@ exports.borrarUsuario = (req,res) =>{
 
     res.status(500).json({
         status: "error",
+        mensaje: "No hecho aun,borrar "
+    })
+
+}
+
+exports.borrarTodosUsuario = async (req,res) =>{
+
+    const usuariosBoorados = await Usuario.deleteMany({})
+
+    res.status(200).json({
+        status: "Suceess",
+        usuariosBoorados: usuariosBoorados.length,
         mensaje: "No hecho aun,borrar "
     })
 

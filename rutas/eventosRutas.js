@@ -1,6 +1,7 @@
 const express = require('express');
 const eventosControladores = require('./../controladores/eventosControladores')
 const eventosRouter = express.Router()
+const authControlador = require("../controladores/authControlador")
 
 
 /* ---------------------Router Params-----------------*/
@@ -23,7 +24,7 @@ eventosRouter.route('/mes-ocupado/:year').get(eventosControladores.mesMasOcupado
 
 eventosRouter
 .route('/')
-.get(eventosControladores.mostrarEventos)
+.get(authControlador.protegerRutas,eventosControladores.mostrarEventos)
 .post(eventosControladores.crearEvento)
 
 //Mostrar, editar o eliminar un Usuario

@@ -23,8 +23,6 @@ exports.mostrarEventos = catchAsync( async (req,res,next)=>{
 
     const funciones = new APIfunciones(eventosModel.find(),req.query).filter().sort().limitFiels().paginacion()
     const todosEventos = await funciones.query;
-
-
         res.status(200).json({
             status:"sucees",
             resultado:todosEventos.length,
@@ -32,13 +30,11 @@ exports.mostrarEventos = catchAsync( async (req,res,next)=>{
                 todosEventos
             }
         })    
-
 })
 /* ---------------------Mostrar solamente el evento selecionado-----------------*/
 exports.mostrarevento = catchAsync(async(req,res,next)=>{
 
         const evento = await eventosModel.findById(req.params.id)
-
         if(!evento){
             return next(new ErrorApp('No se pudo ', 404))
         }

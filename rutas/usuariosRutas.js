@@ -9,11 +9,15 @@ const usuariosRouter = express.Router()
 
 //Ruta de registrarse
 usuariosRouter.post('/registrarse',authControlador.crearUsuario)
+usuariosRouter.post('/login',authControlador.login)
+
+
 
 //Mostrar o Crear Usuario 
 usuariosRouter
 .route('/')
-.get(usuariosControladores.mostrarUsuarios).post(usuariosControladores.crearUsuario);
+.get(usuariosControladores.mostrarUsuarios).post(usuariosControladores.crearUsuario).delete(usuariosControladores.borrarTodosUsuario);
+;
 
 
 //Mostrar, editar o eliminar un Usuario
@@ -22,6 +26,6 @@ usuariosRouter
 .route('/:id')
 .get(usuariosControladores.mostrarUsuario)
 .patch(usuariosControladores.editarUsuario)
-.delete(usuariosControladores.borrarUsuario);
+.delete(usuariosControladores.borrarTodosUsuario);
 
 module.exports = usuariosRouter

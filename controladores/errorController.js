@@ -27,6 +27,15 @@ const errorDesarollo =(err,res) =>{
         return new ErrorApp(message,404);
     }
 
+    const tokenError = () =>{
+        new ErrorApp("Vuelve a entrar",401)
+    }
+    const TokenExpiredError = () =>{
+        new ErrorApp("Vuelve a entrar",401)
+    }
+
+
+
 module.exports = (err,req,res,next) =>{
 
     err.statusCode = err.statusCode ||	500;
@@ -34,7 +43,14 @@ module.exports = (err,req,res,next) =>{
 
     if (process.env.NODE_ENV === 'development'){
 
+        let error = {...err}
         errorDesarollo(err,res)
+        if(error.name ===  "JsonWebTokenError"){
+           error = tokenError()
+        }
+        if(error.name ===  "TokenExpiredError"){
+            error = tokenExpiredError()
+         }
      
     }
     

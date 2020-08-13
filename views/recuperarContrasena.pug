@@ -1,0 +1,17 @@
+extends base 
+
+block contenido
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Cambia Contraseña
+                input( hidden type="text" id='token' value=`${url}`)
+            form.form.form--recuperar-contrasena
+                .form__group
+                    label.form__label(for='nuevaContrasena') nueva contraseña
+                    input.form__input(type='password', placeholder='••••••••', id='nuevaContrasena' required, minlength='8')
+                .form__group.ma-bt-md
+                    label.form__label(for='confirmarNuevaContrasena') confirmar contraseña
+                    input.form__input(type='password', placeholder='••••••••', id='confirmarContrasena'  required, minlength='8')
+                .form__group
+                    button.btn(type='submit') Cambiar Contrasena
+   

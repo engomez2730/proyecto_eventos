@@ -1,0 +1,168 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  link(href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet')
+  // <link rel="stylesheet" href="css/icon-font.css">
+  link(rel='stylesheet' href='css/index.css')
+  link(rel='shortcut icon' type='image/png' href='img/favicon.png')
+  title Eventos RD
+.navigation
+  input#navi-toggle.navigation__checkbox(type='checkbox')
+  label.navigation__button(for='navi-toggle')
+    span.navigation__icon &nbsp;
+  .navigation__background &nbsp;
+  nav.navigation__nav
+    ul.navigation__list
+      li.navigation__item
+        a.navigation__link(href='/')
+          span 01
+          | Acerca de los Eventos
+      li.navigation__item
+        a.navigation__link(href='#')
+          span 02
+          | #
+      li.navigation__item
+        a.navigation__link(href='#')
+          span 03
+          | #
+      li.navigation__item
+        a.navigation__link(href='#')
+          span 04
+          | #
+      li.navigation__item
+        a.navigation__link(href='#')
+          span 05
+          | #
+header.header
+  .header__logo-box
+  .header__text-box
+    h1.heading-primary
+      span.heading-primary--main Eventos RD
+      span.heading-primary--sub La mejor aventura de tu vida
+    a.btn.btn--white.btn--animated(href='/') Ver mas Eventos
+main
+  section.section-about
+    .u-center-text.u-margin-bottom-big
+      h2.heading-secondary
+        | LLeva tus aventuras a otro nivel
+    .row
+      .col-1-of-2
+        h3.heading-tertiary.u-margin-bottom-small Te vas a enamorar de la naturaleza 
+        p.paragraph
+          | Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur
+          | ducimus quam nisi exercitationem omnis earum qui.
+        h3.heading-tertiary.u-margin-bottom-small Experiencias que nuna olvidaras
+        p.paragraph
+          | Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nulla deserunt voluptatum nam.
+        a.btn-text(href='') Ver Mas &rarr;
+      .col-1-of-2
+        .composition
+          img.composition__photo.composition__photo--p1(srcset='img/index/nat-1-large.jpg 300w, img/index/nat-1-large.jpg 1000w' sizes='(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px' alt='Photo 1' src='img/index/nat-1-large.jpg')
+          img.composition__photo.composition__photo--p2(srcset='img/index/nat-2.jpg 300w, img/index/nat-2.jpg 1000w' sizes='(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px' alt='Photo 2' src='img/index/nat-2.jpg')
+          img.composition__photo.composition__photo--p3(srcset='img/index/nat-3.jpg 300w, img/index/nat-3.jpg 1000w' sizes='(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px' alt='Photo 3' src='img/index/nat-3.jpg')
+          //
+            <img src="index/nat-1-large.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
+            <img src="img/nat-2-large.jpg" alt="Photo 2" class="composition__photo composition__photo--p2">
+            <img src="img/nat-3-large.jpg" alt="Photo 3" class="composition__photo composition__photo--p3">
+  section.section-features
+    .row
+      .col-1-of-4
+        .feature-box
+          i.feature-box__icon.icon-basic-world
+          h3.heading-tertiary.u-margin-bottom-small Explora el Pais
+          p.feature-box__text
+            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur.
+      .col-1-of-4
+        .feature-box
+          i.feature-box__icon.icon-basic-compass
+          h3.heading-tertiary.u-margin-bottom-small Conoce la Naturaleza
+          p.feature-box__text
+            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur.
+      .col-1-of-4
+        .feature-box
+          i.feature-box__icon.icon-basic-map
+          h3.heading-tertiary.u-margin-bottom-small Encuentrate a ti mismo
+          p.feature-box__text
+            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur.
+      .col-1-of-4
+        .feature-box
+          i.feature-box__icon.icon-basic-heart
+          h3.heading-tertiary.u-margin-bottom-small Una vida saludable
+          p.feature-box__text
+            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur.
+  section#section-tours.section-tours
+    .bg-video
+      video.bg-video__content(autoplay='' muted='' loop='')
+        source(src='img/index/video.mp4' type='video/mp4')
+        source(src='img/index/video.webm' type='video/webm')
+        |                         Your browser is not supported!
+    .u-center-text.u-margin-bottom-big
+      h2.heading-secondary
+        | Hacemos a las personas sentirse orgullosas
+    .row
+      .story
+        figure.story__shape
+          img.story__img(src='img/index/nat-8.jpg' alt='Person on a tour')
+          figcaption.story__caption Mary Smith
+        .story__text
+          h3.heading-tertiary.u-margin-bottom-small Tuvo el mejor dia de mi vida 
+          p
+            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur
+            | ducimus quam nisi exercitationem omnis earum qui. Aperiam, ipsum sapiente aspernatur libero
+            | repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.
+    .row
+      .story
+        figure.story__shape
+          img.story__img(src='img/index/nat-9.jpg' alt='Person on a tour')
+          figcaption.story__caption Jack Wilson
+        .story__text
+          h3.heading-tertiary.u-margin-bottom-small WOW! My vida es totalemte diferente ahora 
+          p
+            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur
+            | ducimus quam nisi exercitationem omnis earum qui. Aperiam, ipsum sapiente aspernatur libero
+            | repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.
+    .u-center-text.u-margin-top-huge
+      a.btn-text(href='/  ') Ver mas Eventos &rarr;
+  footer.footer
+    .footer__logo-box
+    .row
+      .col-1-of-2
+        .footer__navigation
+          ul.footer__list
+            li.footer__item
+              a.footer__link(href='#') Company
+            li.footer__item
+              a.footer__link(href='#') Contactanos
+            li.footer__item
+              a.footer__link(href='#') Oliticas de Privacidad
+            li.footer__item
+              a.footer__link(href='#') Terminos de Privacidad
+      .col-1-of-2
+        p.footer__copyright
+          | Hecho por 
+          a.footer__link(href='#') Enderson Gomez para 
+          a.footer__link(href='#') Ucateci
+          | .
+          |                         Copyright &copy; by Enderson Gomez
+  #popup.popup
+    .popup__content
+      .popup__left
+        img.popup__img(src='img/index/nat-8.jpg' alt='Tour photo')
+        img.popup__img(src='img/index/nat-9.jpg' alt='Tour photo')
+      .popup__right
+        a.popup__close(href='#section-tours') &times;
+        h2.heading-secondary.u-margin-bottom-small Start booking now
+        h3.heading-tertiary.u-margin-bottom-small Important &ndash; Please read these terms before booking
+        p.popup__text
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          | Sed sed risus pretium quam. Aliquam sem et tortor consequat id. Volutpat odio facilisis mauris sit
+          | amet massa vitae. Mi bibendum neque egestas congue. Placerat orci nulla pellentesque dignissim enim
+          | sit. Vitae semper quis lectus nulla at volutpat diam ut venenatis. Malesuada pellentesque elit eget
+          | gravida cum sociis natoque penatibus et. Proin fermentum leo vel orci porta non pulvinar neque laoreet.
+          | Gravida neque convallis a cras semper. Molestie at elementum eu facilisis sed odio morbi quis. Faucibus
+          | vitae aliquet nec ullamcorper sit amet risus nullam eget. Nam libero justo laoreet sit. Amet massa
+          | vitae tortor condimentum lacinia quis vel eros donec. Sit amet facilisis magna etiam. Imperdiet sed
+          | euismod nisi porta.
+        a.btn.btn--green(href='#') Book now

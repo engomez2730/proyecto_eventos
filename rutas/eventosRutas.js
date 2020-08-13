@@ -1,38 +1,71 @@
 const express = require('express');
 const eventosControladores = require('./../controladores/eventosControladores')
-const eventosRouter = express.Router()
 const authControlador = require("../controladores/authControlador")
+const reviewRouter = require("./reviewRutas")
 
 
-/* ---------------------Router Params-----------------*/
+
+const eventosRouter = express.Router()
 
 
-/* eventosRouter.param('id', eventosControladores.checkId)
- */
-/* ---------------------MAIN-----------------*/
+//Route Middlaware 
+eventosRouter.use('/:eventoId/reviews/', reviewRouter)
 
 
 //estadisticas
 eventosRouter.route('/estadisticas/evento').get(eventosControladores.getEstadisticas)
 //Ver los 5 articulos mas vendidos
 eventosRouter.route('/top-5-mas-vendidos')
-.get(eventosControladores.mostrarmasVendidos,eventosControladores.mostrarEventos)
+    .get(eventosControladores.mostrarmasVendidos, eventosControladores.mostrarEventos)
 //Ver el mes mas ocupado del año
-eventosRouter.route('/mes-ocupado/:year').get(eventosControladores.mesMasOcupado)
+eventosRouter.route('/mes-ocupado/:year')
+    .get(authControlador.protegerRutas,
+        authControlador.poderEntrar('admin', 'guias'),
+        eventosControladores.mesMasOcupado)
+
+
+eventosRouter.route('/eventos-within/:distancia/centro/:latIng/unit/:unit').get(eventosControladores.verEventoDistancia)
+//tours-distance?distance=233,center=-40,45&unit=mi
 
 //Mostrar o crear un Usuario
 
 eventosRouter
-.route('/')
-.get(authControlador.protegerRutas,eventosControladores.mostrarEventos)
-.post(eventosControladores.crearEvento)
+    .route('/')
+    .get(eventosControladores.mostrarEventos)
+    .post(authControlador.protegerRutas,
+        authControlador.poderEntrar('admin','guia'),
+        eventosControladores.crearEvento)
+    .delete(eventosControladores.borrarTodosEventos)
 
-//Mostrar, editar o eliminar un Usuario
 
-
+//Mostrar evento
 eventosRouter.route('/:id')
-.get(eventosControladores.mostrarevento)
-.patch(eventosControladores.actualizarEvento)
-.delete(eventosControladores.borrarEvento);
+    .get(eventosControladores.mostrarevento)
+
+    //editar evento
+
+    .patch(authControlador.protegerRutas,
+        authControlador.poderEntrar('admin', 'guia'),
+        eventosControladores.subirFotos,
+        eventosControladores.ajustarimagenes,
+        eventosControladores.actualizarEvento)
+
+    //eliminar evento
+
+    .delete(authControlador.protegerRutas,
+        authControlador.poderEntrar('admin'),
+        eventosControladores.borrarEvento);
+
+//crear Review
+
+/* eventosRouter.route('/:eventoId/reviews')
+    .post(authControlador.protegerRutas,
+    authControlador.poderEntrar('usuario'),
+    reviewControlador.crearReview
+    );
+
+ */
+
+ eventosRouter.route('/subirimagenes', eventosControladores.subirImagenes)
 
 module.exports = eventosRouter

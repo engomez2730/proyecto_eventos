@@ -1,0 +1,26 @@
+
+extends base 
+
+block contenido
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg= nombre
+            form(action=`/prueba2` enctype='multipart/form-data' method='POST')
+                input( hidden type="text" name='id' value=`${nombre}`)
+                .form__group
+                    label.form__label(for='email') Imagen de Otras Imagenes
+                    input#imagen2.form__input(type='file',  name='myFiles' placeholder='you@example.com', multiple required)
+                .form__group
+                    button.btn(type='submit') Subir
+           
+
+
+
+            
+
+
+           
+
+
+            
+

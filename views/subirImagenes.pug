@@ -1,0 +1,15 @@
+extends base 
+
+block contenido
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Subir Imagenes del evento
+            form(action='/imagen', method='POST' enctype="multipart/form-data")
+                .form__group
+                    label.form__label(for='imagenPrinciapal') Imagen Principal
+                    input.form__input(type='file'  name='imagen')
+                .form__group
+                    button.btn--green(type='submit') Subir Imagenes
+              
+            
+            

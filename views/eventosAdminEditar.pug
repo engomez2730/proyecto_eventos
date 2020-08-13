@@ -1,0 +1,101 @@
+html(lang="es")
+    head
+        block head
+            meta(charset="UTF-8")
+            meta(name="viewport", content="width=device-width, initial-scale=1.0")
+            link(rel="stylesheet" href="/css/styleEventos.css")
+            link(rel="shortcut icon", type="image/png" href="/img/favicon.png")
+            title #{titulo} 
+            link(rel="stylesheet",  href="https://fonts.googleapis.com/css?family=Lato:300,300i,700")
+            script(src='https://js.stripe.com/v3/')
+
+
+
+    body    
+
+
+        //-Header
+        
+        header.header
+            nav.nav.nav--tours
+                a.nav__el(href='/') EventosRD
+                a.nav__el(href='/') Categorias 
+            .header__logo
+            nav.nav.nav--user
+                if usuario
+                    a.nav__el.salir Salir
+                    a.nav__el(href='/me')
+                        img.nav__user-img(src=`img/users/${usuario.imagen}` alt='Foto del Usuario')
+                        span=usuario.nombre.split(' ')[0]
+                else
+                    a.nav__el(href='/login') Entrar
+                    a.nav__el.nav__el--cta(href='/registrarse') Registrarse
+            
+    main.main
+        .sigup-form
+            h2.heading-secondary.ma-bt-lg Editar Evento 
+                input( hidden type="text" id='idSpan' value=`${evento.id}`)
+            form.form.form-actializarEvento
+                .form__group
+                    label.form__label(for='nombre') Nombre 
+                    input.form__input(type='text', id='nombre' name='nombre' value=`${evento.nombre}` placeholder='Jose', minlength='8')
+                .form__group.ma-bt-md
+                    label.form__label(for='precio') Precio
+                    input.form__input(type='number',id='precio' placeholder='precio', name='precio' value=`${evento.precio}` required,)
+                .form__group.ma-bt-md
+                    label.form__label(for='diadelTour') Dia inicial del Evento
+                    input.form__input(type='text', id='diadelTour' placeholder='', name='diadelTour' value=`${evento.diadelTour}` required,)
+                .form__group.ma-bt-md
+                    label.form__label(for='duracion') Duracion
+                    input.form__input(type='number', id='duracion' placeholder='3 dias'  name='duracion' value=`${evento.duracion}`, required,)
+                .form__group.ma-bt-md
+                    label.form__label(for='Tipo') Tipo de Evento
+                    select#Tipo(name="Tipo" value=`${evento.Tipo}`)
+                        option(value="Giras") Giras
+                        option(value="Eventos Deportivos") Eventos Deportivos
+                        option(value="Excursiones Educativas") Excursiones Educativas
+                        
+                .form__group.ma-bt-md
+                    label.form__label(for='paradas') Paradas
+                    input.form__input(type='number', id='paradas' name='paradas' value=`${evento.paradas}` placeholder='Paradas', required,)
+                .form__group.ma-bt-md
+                    label.form__label(for='puntoDeSalida') Punto de Salida*
+                    input.form__input(type='text', placeholder='Paradas', id='puntoDeSalida' name='puntoDeSalida' value=`${evento.puntoDeSalida}` required,)
+                .form__group.ma-bt-md
+                    label.form__label(for='maximodePersonas') Maximo de Personas
+                    input.form__input(type='number', id='maximodePersonas' placeholder='Paradas' name='maximodePersonas'  value=`${evento.maximodePersonas}` , required,)
+                .form__group.ma-bt-md
+                    label.form__label(for='summary') Descripcion Corta
+                    input.form__input(type='text', id='summary' placeholder='Paradas', name='summary' value=`${evento.summary}` required,)
+                .form__group.ma-bt-md
+                    label.form__label(for='destino') Destino
+                    input.form__input(type='text', placeholder='Paradas' id='destino' name='destino' value=`${evento.destino}` , required,)
+                .form__group.ma-bt-md
+                    label.form__label(for='descripcion') Descripcion Larga
+                    textarea( id='descripcion'  name="descripcion" value=`${evento.descripcion}` cols="100", rows="10" )= evento.descripcion
+                .form__group
+                    button.btn Editar Evento
+                    a.btnorange(href=`/admin/eventos/facturas/${evento.id}`) Ver Usuarios
+                    a.btnred(href='/admin') cancelar
+
+
+    footer.footer
+            .footer__logo
+            ul.footer__nav
+                li: a(href='') Contactanos
+                li: a(href='#') Conviertete en un Guia
+                li: a(href='#') Acerca de Nosotros
+            p.footer__copyright &copy; by Enderson Gomez
+
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js')
+            script(src='/js/login.js')
+            script(src='/js/logout.js')
+            script(src='/js/signup.js')
+            script(src='/js/actualizarUsuario.js')
+            script(src='/js/pagos.js')
+            script(src='/js/crearEvento.js')
+            script(src='/js/actualizarEventoEditar.js')
+            script(src='https://js.stripe.com/v3/')
+
+
+

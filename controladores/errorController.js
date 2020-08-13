@@ -48,12 +48,8 @@ module.exports = (err,req,res,next) =>{
         if(error.name ===  "JsonWebTokenError"){
            error = tokenError()
         }
-        if(error.name ===  "TokenExpiredError"){
-            error = tokenExpiredError()
-         }
      
     }
-    
     else if(process.env.NODE_ENV === 'production'){
       
         let error = {...err}

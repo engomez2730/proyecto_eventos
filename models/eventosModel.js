@@ -1,92 +1,166 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const validator = require('validator')
+const usuarioModel = require('./usuariosModel');
 
-//Eventos Schema- Tabla Eventos
 
 const eventosSchema = new mongoose.Schema({
 
-    nombre:{
+    nombre: {
         type: String,
-        required:[true,"Debe tener un nombre"],
+        required: [true, "Debe tener un nombre"],
         unique: true,
         trim: true,
-        maxlength:[40, "Un Tour debe tener menos de 40 caracteres"],
-        minlength:[5, "El nombre debe tener mas de 5 palabras"],
-        /* validate:[validator.isAlpha, "No puede tener Numeros"]*/    },
-    duracion:{
-        type: Number,
-        required:[true]
+        maxlength: [40, "Un Tour debe tener menos de 40 caracteres"],
+        minlength: [5, "El nombre debe tener mas de 5 palabras"],
+        /* validate:[validator.isAlpha, "No puede tener Numeros"]*/
     },
-    maximodePersonas:{
+    duracion: {
         type: Number,
-        required:[true]
+        required: [true]
     },
-    dificultad:{
-        type:String,
-        required:[true],
-        enum:{
-            values:["facil","medio","dificil"],
-            mensaje:"Deber ser facil, medio o dificil"
+    maximodePersonas: {
+        type: Number,
+        required: [true]
+    },
+    Tipo: {
+        type: String,
+        required: [true],
+        enum: {
+            values: ["Giras", "Excursiones Educativas", "Eventos Deportivos"],
+            mensaje: "Deber tener una categoria "
         },
     },
-    slug:{
+    slug: {
         String
     },
-    ratingAvg:{
-        type:Number,
-        default:4.5,
-        min:[1,"El rating debe ser mayor que 1"],
-        max:[5,"El rating no puede pasar de 5"]
-    },
-    eventoSecreto:{
+    eventoSecreto: {
         type: Boolean
     },
-    summary:{
-        type:String,
-        trim:true
+    summary: {
+        type: String,
+        trim: true
     },
-    descripcion:{
-        type:String,
-        trim:true,
-        required:[true]
+    descripcion: {
+        type: String,
+        trim: true,
+        required: [true]
     },
-    imagenPrincipal:{
-        type:String,
-        require:[true]
+    imagenPrincipal: {
+        type: String
+
     },
-    todasLasImagenes:[String],
-    fechadeCreacion:{
-        type:Date,
-        default:Date.now()
+    todasLasImagenes: [{
+        type: Array
+    }
+    
+    ],
+    fechadeCreacion: {
+        type: Date,
+        default: Date.now()
     },
-    diadelTour:[Date],
-    precio:{
+    diadelTour:[Date]
+    ,
+    precio: {
         type: Number,
-        required:[true,"Debe tener un precio"],
+        required: [true, "Debe tener un precio"],
     },
     // Validacion manual
-    precioDescuento:{
+    precioDescuento: {
         type: Number,
-        validate: function(val){
-            return val < this.precio 
+        validate: function (val) {
+            return val < this.precio
         }
     },
-    ratingCantidad:{
-        type: Number,
-        default: 0
-    }
+    puntoDeSalida:String,
+/*     destino: {
+        String
+        //GeoJson
+        type: {
+            type: String,
+            default: 'Point',
+            enum: ['Point']
+        },
+        coordenadas: [Number],
+        direccion: String,
+        descripcion: String
+    }, */
+    paradas:{
+        type:Number,
+        required:[true,"Un evento debe tener paradas"]
+    },
+    guiaIdentificacion:{
+        type: String
 
+    },
+ /*    localizaciones: [
+        {
+            type: {
+                type: String,
+                default: 'Point',
+                enum: ['Point']
+            },
+            coordenadas: [Number],
+            direccion: String,
+            descripcion: String,
+            day: Number
+        }
+    ], */
+    usuarios: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Usuarios'
+        }
+    ],
+    guias:Array,
+
+    destino:String 
 },
-{
-    toJSON:{virtuals: true},
-    toObject:{virtuals: true}
-});
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
+    }
+);
 
-eventosSchema.virtual('duracionSemanas').get(function(){
-    return this.duracion / 7 ;
+eventosSchema.index({ localizacionInicial: '2dsphere' })
 
-});
+//virtual Populate
+//Permita modelar coleciones dentro de otras sin necesidad de guardarlas ahi o hacer Querys de mas
+//En Este caso se esta modelando reviews en la colecion Eventos
+
+/* eventosSchema.virtual('usuarios1', {
+    ref: 'Usuarios',
+    foreignField: 'evento',
+    localField: '_id'
+}) */
+
+//modelando guias en la colecion Eventos
+
+/* eventosSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: 'usuarios',
+        select: '-__v'
+    })
+    next()
+}) */
+
+eventosSchema.pre('save',async function(next){
+    const guiasPromises = this.guias.map(async id => await usuarioModel.findById(id))
+    this.guias =await Promise.all(guiasPromises)
+    console.log(guiasPromises)
+    next();
+})
+
+
+
+
+
+
+/* eventosSchema.pre('save',async function(next){
+    const guiasAñadidos = this.guias.map(async id => usuarioModel.findById(id))
+    this.guias = await Promise.all(guiasAñadidos)
+    next()
+})
+ */
 
 //Documentos Midlaware 
 
@@ -113,6 +187,6 @@ eventosSchema.virtual('duracionSemanas').get(function(){
 
 
 
-const Eventos = mongoose.model('eventos',eventosSchema)
+const Eventos = mongoose.model('Eventos', eventosSchema)
 
 module.exports = Eventos;

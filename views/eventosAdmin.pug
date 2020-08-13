@@ -1,0 +1,75 @@
+html(lang="es")
+    head
+        block headAdmin
+            meta(charset="UTF-8")
+            meta(name="viewport", content="width=device-width, initial-scale=1.0")
+            link(rel="stylesheet" href="/css/style2.css")
+            link(rel="shortcut icon", type="image/png" href="/img/favicon.png")
+            title #{titulo} 
+            link(rel="stylesheet",  href="https://fonts.googleapis.com/css?family=Lato:300,300i,700")
+            link( rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css")
+            script(src='https://js.stripe.com/v3/')
+            script(src='/js/actualizarUsuarioAdmin')
+
+
+    body
+    
+
+        header
+          label(for="check")
+            div( id='sidebar_btn')
+          .left_area
+            a(href="/" class='a-estilo') Eventos RD
+          .right_area
+            a.logout_btn(href="#") Salir
+        
+        
+        .sidebar
+          a(href="/admin" class='fas fa-user')  Usuarios
+          a(href="/admin/editareventos" class='fas fa-umbrella-beach')  Eventos
+          a(href="/admin/facturas" class='fas fa-file-invoice-dollar')  Facturas
+          a(href="#" class='fas fa-info-circle')  Informacion
+          a(href="#" class='fas fa-chevron-circle-down')  Mas
+
+  
+        .contenido-usuarios
+        
+
+              div(class='usuarioH1 fa fa-umbrella-beach')  Eventos Totales: #{eventosLength}
+              table.content-table
+                thead
+                  tr
+                    th nombre
+                    th descripcion
+                    th precio
+                    th Opciones
+                tbody
+                      each evento in eventos
+                        tr
+                          td= evento.nombre
+                          td= evento.summary
+                          td= evento.precio
+                          td
+                            a(href=`/admin/eventos/${evento.id}` class='btn btn-info' id='myBtn') Editar
+                            a(href=`/admin/eventosEliminar/${evento.id}` class='btn btn-danger') Eliminar
+        
+
+    footer.footer
+            .footer__logo
+            ul.footer__nav
+                li: a(href='') Contactanos
+                li: a(href='#') Conviertete en un Guia
+                li: a(href='#') Acerca de Nosotros
+            p.footer__copyright &copy; by Enderson Gomez
+
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js')
+            script(src='/js/login.js')
+            script(src='/js/logout.js')
+            script(src='/js/signup.js')
+            script(src='/js/actualizarUsuario.js')
+            script(src='/js/pagos.js')
+            script(src='/js/crearEvento.js')
+            script(src='/js/actualizarEventoEditar.js')
+            script(src='/js/eliminarEvento.js')
+            script(src='https://js.stripe.com/v3/')
+

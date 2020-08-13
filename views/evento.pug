@@ -1,0 +1,105 @@
+extends base 
+
+block append head 
+    script(src='https://js.stripe.com/v3/')
+
+
+block contenido
+
+    section.section-header
+        .header__hero
+            .header__hero-overlay &nbsp;
+            img.header__hero-img(src=`/img/tours/${evento.imagenPrincipal}`, alt='Tour 5')
+
+        .heading-box
+            h1.heading-primary
+              span= `${evento.nombre}`
+            .heading-box__group
+                .heading-box__detail
+                    svg.heading-box__icon
+                        use(xlink:href='/img/icons.svg#icon-clock')
+                    span.heading-box__text= `${evento.duracion} Dias`
+                .heading-box__detail
+                    svg.heading-box__icon
+                        use(xlink:href='/img/icons.svg#icon-map-pin')
+                    span.heading-box__text= evento.destino
+
+    section.section-description
+        .overview-box
+            div
+            .overview-box__group
+                h2.heading-secondary.ma-bt-lg Detalles
+                .overview-box__detail
+                    svg.overview-box__icon
+                        use(xlink:href='/img/icons.svg#icon-calendar')
+                    span.overview-box__label Dia del evento:
+                    span.overview-box__text= evento.diadelTour.toLocaleString('en-us', {month:'long',year:'numeric'})
+                .overview-box__detail
+                    svg.overview-box__icon
+                        use(xlink:href='/img/icons.svg#icon-trending-up')
+                    span.overview-box__label Punto de Salida:
+                    span.overview-box__text= evento.puntoDeSalida
+                .overview-box__detail
+                    svg.overview-box__icon
+                        use(xlink:href='/img/icons.svg#icon-user')
+                    span.overview-box__label Participantes
+                    span.overview-box__text= evento.maximodePersonas        
+                .overview-box__detail
+                    svg.overview-box__icon
+                        use(xlink:href='/img/icons.svg#icon-star')
+                    span.overview-box__label Paradas
+                    span.overview-box__text= evento.paradas
+      
+
+        .description-box
+            h2.heading-secondary.ma-bt-lg=`Acerca de ${evento.nombre}` 
+            p.description__text=  evento.descripcion
+
+             h2.heading-secondary.ma-bt-lg Guia:
+            .overview-box__detail
+                img.overview-box__img(src=`/img/users/${evento.guias[0].imagen}`, alt='Lead guide')
+                span.overview-box__text #{evento.guias[0].nombre}
+
+     
+  
+    
+    section.imagenes
+
+        img.box1(src=`/img/tours/${evento.todasLasImagenes[0]}`, alt=`Lead guide`)
+        img.box1(src=`/img/tours/${evento.todasLasImagenes[1]}`, alt=`Lead guide`)
+        img.box1(src=`/img/tours/${evento.todasLasImagenes[2]}`, alt=`Lead guide`)
+
+    
+    section.section-cta
+        .cta
+            img.cta__img.cta__img--1(src=`/img/tours/${evento.todasLasImagenes[0]}`, alt='')
+            img.cta__img.cta__img--1(src=`/img/tours/${evento.todasLasImagenes[1]}`, alt='')
+            img.cta__img.cta__img--2(src=`/img/tours/${evento.todasLasImagenes[2]}`, alt='')
+            .cta__content
+                    h2.heading-secondary Que estas esperando?
+                    p.cta__text Vive una experiencia inugualable ya! 
+    
+    if usuario
+        section.boton
+            button.btn.claseboton3#book-tour(data-evento-id=`${evento.id}`) Compralo Ya
+    else
+        section.boton
+            a(class='boton2' href='/login') Entra para Unirte
+
+
+    
+    
+
+    script(src='/js/login.js')
+    script(src='/js/logout.js')
+    script(src='https://js.stripe.com/v3/')
+
+
+    
+               
+                                
+
+
+                
+
+            

@@ -1,0 +1,18 @@
+
+extends base 
+
+block contenido
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Entra a tu cuenta
+            form(action='/prueba' enctype='multipart/form-data' method='POST')
+                .form__group
+                    label.form__label(for='imagen') Imagen de Perfil
+                    input#imagen.form__input(type='file',  name='myFile' placeholder='you@example.com', required)
+                .form__group
+                    button.btn(type='submit') Entrar
+           
+
+
+            
+

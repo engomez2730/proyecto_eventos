@@ -11,12 +11,11 @@ mongoose.connect(DB,{
 
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true 
+    setFindAndUpdate:true   
 
 }).then(con =>{
     console.log('Conexion perfecta');
 });
-
 
 
 //Servidor

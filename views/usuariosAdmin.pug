@@ -1,0 +1,35 @@
+extends base 
+
+block contenido
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Editar #{usuario.nombre}
+            input(hidden type="text" id='id' value=`${usuario.id}` name='id')
+            form.form.form--editarUsuario
+                .form__group
+                    label.form__label(for='nombre') Nombre  #{usuario.nombre}
+                    input.form__input(type='text', value=`${usuario.nombre}` id='nombre')
+                .form__group.ma-bt-md
+                    label.form__label(for='correo') Correo  #{usuario.nombre}
+                    input.form__input(type='email', id='correo' value=`${usuario.correo}`)
+                .form__group.ma-bt-md
+                    label.form__label(for='rol') Rol de #{usuario.nombre}
+                    select#rol(name="rol")
+                        option(value="admin") admin
+                        option(value="guia") guia
+                        option(value="usuario") usuario normal
+                .form__group
+                    button.btn--green(type='submit') Editar #{usuario.nombre}
+          
+
+
+            
+
+
+
+              
+        
+
+          
+
+   

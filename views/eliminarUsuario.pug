@@ -1,0 +1,18 @@
+extends base 
+
+block contenido
+    main.main
+        .login-form
+            input(hidden type="text" id='id' value=`${usuario.id}` name='id')
+            form.form.form-user-delete
+                h2.heading-secondary.ma-bt-lg ¿Deseas eliminar a #{usuario.nombre}?  
+                    button.btn--red Eliminar #{usuario.nombre}
+                    a.btn--orange(href='/admin') Cancelar
+
+                
+
+              
+            
+
+
+            

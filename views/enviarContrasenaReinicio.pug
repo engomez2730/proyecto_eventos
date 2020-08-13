@@ -1,0 +1,14 @@
+extends base 
+
+block contenido
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Escribe tu correo para para reiniciar Contraseña
+            form.form.form--reiniciar
+                .form__group
+                    label.form__label(for='email') Correo
+                    input#email.form__input(type='email', placeholder='you@example.com', required)
+                .form__group
+                    button.btn(type='submit') Entrar
+                    a.heading-secondary-login-2.ma-bt-lg(href='/registrarse') ¿No tienes cuenta?
+

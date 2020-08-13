@@ -1,0 +1,26 @@
+extends base 
+
+block contenido
+    main.main
+    .contenido-usuarios
+        div(class='usuarioH1 fa fa-user')  Usuarios Totales: #{usuariosLength}
+        table.content-table
+             thead
+                  tr
+                    th nombre
+                    th correo
+                    th rol
+                    th Opciones
+             tbody
+                      
+                        tr
+                          td loco
+                          td loco
+                          td loco
+                          td
+                            a(href=`/admin/usuarios/` class='btn btn-info' id='myBtn') Editar
+                            a(href=`/admin/usuarios/borrar/` class='btn btn-danger') Eliminar
+        
+
+        
+           

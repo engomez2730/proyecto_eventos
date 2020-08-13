@@ -1,0 +1,44 @@
+html(lang="es")
+    head
+        block headAdmin
+            meta(charset="UTF-8")
+            meta(name="viewport", content="width=device-width, initial-scale=1.0")
+            link(rel="stylesheet" href="/css/style2.css")
+            link(rel="shortcut icon", type="image/png" href="/img/favicon.png")
+            title #{titulo} 
+            link(rel="stylesheet",  href="https://fonts.googleapis.com/css?family=Lato:300,300i,700")
+            link( rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css")
+            script(src='https://js.stripe.com/v3/')
+            script(src='/js/actualizarUsuarioAdmin')
+
+
+    body
+  
+
+        header
+          label(for="check")
+            div( id='sidebar_btn')
+          .left_area
+            a(href="/" class='a-estilo') Eventos RD
+          .right_area
+            a.logout_btn(href="#") Salir
+        
+        
+        .sidebar
+          a(href="/admin" class='fas fa-user')  Usuarios
+          a(href="/admin/editareventos" class='fas fa-umbrella-beach')  Eventos
+          a(href="/admin/facturas" class='fas fa-file-invoice-dollar')  Facturas
+          a(href="/informacion" class='fas fa-info-circle')  Informacion
+          a(href="#" class='fas fa-chevron-circle-down')  Mas
+
+  
+        .contenido-usuarios
+        
+
+              div(class='usuarioH1 fa fa-user')  Usuarios
+              
+              .tabla
+                .card
+        
+          
+

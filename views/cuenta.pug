@@ -1,0 +1,95 @@
+extends base
+
+block contenido
+  
+    main.main
+        .user-view
+            nav.user-view__menu
+                ul.side-nav
+                    li.side-nav--active
+                    a(href='#')
+                        svg
+                            use(xlink:href='img/icons.svg#icon-settings')
+                        | Opciones
+                    li
+                    a(href='my-evento')
+                        svg
+                            use(xlink:href='img/icons.svg#icon-briefcase')
+                        | Mis Eventos
+                    li
+                    a(href='#')
+                        svg
+                            use(xlink:href='img/icons.svg#icon-credit-card')
+                        | Facturas
+
+                    -if (usuario.rol === 'guia')
+                         .admin-nav
+                            h5.admin-nav__heading Guia
+                            ul.side-nav
+                                li
+                                    a(href='/vereventosguia')
+                                        svg
+                                            use(xlink:href='img/icons.svg#icon-map')
+                                        | Editar Mis Eventos
+                                    a(href='/crearevento')
+                                        svg
+                                            use(xlink:href='img/icons.svg#icon-map')
+                                        | Crear Evento
+                  
+                    -if (usuario.rol === 'admin')
+                         .admin-nav
+                            h5.admin-nav__heading 
+                            ul.side-nav
+                                li
+                                    a(href='/admin')
+                                        svg
+                                            use(xlink:href='img/icons.svg#icon-map')
+                                        | Administrar 
+                                li
+                                    a(href='/crearevento')
+                                        svg
+                                            use(xlink:href='img/icons.svg#icon-map')
+                                        | Crear Evento
+                    -if (usuario.rol === 'usuario')
+                         .admin-nav
+                            h5.admin-nav__heading 
+                            ul.side-nav
+                                li
+                                    a(href='/convertirseenguia')
+                                        svg
+                                            use(xlink:href='img/icons.svg#icon-map')
+                                        | Convertirse en Guia
+                        
+               
+            .user-view__content
+                .user-view__form-container
+                    h2.heading-secondary.ma-bt-md Configuracion de tu cuenta
+                    form.form.form-user-data
+                        .form__group
+                            label.form__label(for='nombre') Nombre
+                            input#name.form__input(type='text', value=`${usuario.nombre}`, required name='nombre')
+                        .form__group.ma-bt-md
+                            label.form__label(for='correo') Correo
+                            input#email.form__input(type='email', value=`${usuario.correo}`, required name='correo')
+                        .form__group.form__photo-upload
+                            img.form__user-photo(src=`img/users/${usuario.imagen}`, alt='User photo')
+                            a.form__upload(type="file", accept='image', id='photo', name='photo')
+                            label(for="photo") Elegir nueva foto
+                        .form__group.right
+                            button.btn Guardar Cambios
+                            
+                .line &nbsp;
+                .user-view__form-container
+                    h2.heading-secondary.ma-bt-md Cambiar Contraseña
+                    form.form.form-user-settings.form-contrasena
+                        .form__group
+                            label.form__label(for='password-current') Contraseña actual
+                            input.form__input(type='password', placeholder='••••••••', required, id='contrasena'  name='contrasena' minlength='8')
+                        .form__group
+                            label.form__label(for='password') Nueva Contraseña
+                            input.form__input(type='password', placeholder='••••••••', required, id='nuevaContasena' name='nuevaContasena' minlength='8')
+                        .form__group.ma-bt-lg
+                            label.form__label(for='password-confirm') Confirmar Contraseña
+                            input.form__input(type='password', placeholder='••••••••',id='confirmarContrasena' name='confirmarContrasena'  required, minlength='8')
+                        .form__group.right
+                            button.btn Cambiar Contrasena 

@@ -1,0 +1,43 @@
+extends base
+
+block contenido 
+
+  main.main
+    .card-container
+        each evento in eventos
+            .card
+                .card__header
+                    .card__picture
+                        .card__picture-overlay &nbsp;
+                        img.card__picture-img(src=`img/tours/${evento.imagenPrincipal}`, alt=`${evento.nombre}`)
+                    h3.heading-tertirary
+                        span= evento.nombre
+
+                .card__details
+                    h4.card__sub-heading= `$${evento.precio}, Duracion, ${evento.duracion} Dias`
+                    p.card__text #{evento.summary}
+                    .card__data
+                        svg.card__icon
+                            use(xlink:href='img/icons.svg#icon-map-pin')
+                        span #{evento.puntoDeSalida.direccion}
+                    .card__data
+                        svg.card__icon
+                            use(xlink:href='img/icons.svg#icon-calendar')
+                        span= evento.diadelTour.toLocaleString('en-us', {month:'long',year:'numeric'})
+                    .card__data
+                        svg.card__icon
+                            use(xlink:href='img/icons.svg#icon-flag')
+                        span= `${evento.paradas} Paradas`   
+                    .card__data
+                        svg.card__icon
+                            use(xlink:href='img/icons.svg#icon-user')
+                        span= `${evento.maximodePersonas} Personas` 
+
+                .card__footer
+                    p
+                        span.card__footer-value= `${evento.precio}$ `
+                        span.card__footer-text por Persona
+                    p.card__ratings
+                        span.card__footer-value 
+                        span.card__footer-text Buena Suerte
+                    a.btn(href=`/eventos/${evento.id}`) Detalles

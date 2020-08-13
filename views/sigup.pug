@@ -1,0 +1,28 @@
+extends base 
+
+block contenido
+    main.main
+        .sigup-form
+            h2.heading-secondary.ma-bt-lg Crear cuenta
+            form.form.form--signup
+                .form__group
+                    label.form__label(for='nombre') Nombre 
+                    input#nombre.form__input(type='text',  placeholder='Jose', required)
+                .form__group.ma-bt-md
+                    label.form__label(for='correo') Correo
+                    input#correo.form__input(type='email', placeholder='jose@gmail.co', required, minlength='8')
+                .form__group.ma-bt-md
+                    label.form__label(for='contrasena') Contraseña
+                    input#contrasena.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                .form__group.ma-bt-md
+                    label.form__label(for='confirmarContrasena') Confirmar Contraseña
+                    input#confirmarContrasena.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                .form__group.ma-bt-md
+                    label.form__label(for='preferencias') Tipo de Evento
+                    select#preferencias(name="preferencias")
+                        option(value="Giras") Giras
+                        option(value="Eventos Deportivos") Eventos Deportivos
+                        option(value="Excursiones Educativas") Excursiones Educativas
+
+                .form__group
+                    button.btn Registrarse

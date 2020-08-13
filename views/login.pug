@@ -1,0 +1,21 @@
+extends base 
+
+block contenido
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Entra a tu cuenta
+            form.form.form--login
+                .form__group
+                    label.form__label(for='email') Correo
+                    input#email.form__input(type='email', placeholder='you@example.com', required)
+                .form__group.ma-bt-md
+                    label.form__label(for='password') Contraseña
+                    input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                .form__group
+                    button.btn(type='submit') Entrar
+                a.heading-secondary-login.ma-bt-lg(href='/olvidecontrasena') ¿Olvidaste tu contraseña? 
+                a.heading-secondary-login-2.ma-bt-lg(href='/registrarse') ¿No tienes cuenta?
+
+
+            
+            
